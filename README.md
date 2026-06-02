@@ -1,4 +1,4 @@
-Ultra-Lite Phantom+Specter
+Ultra-Lite Phantom Specter
 Lightweight Web Content Blocker Userscript for Tampermonkey
 
 📌 Overview
