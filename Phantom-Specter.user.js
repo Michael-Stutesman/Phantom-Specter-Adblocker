@@ -1,27 +1,37 @@
 // ==UserScript==
-// @name         Ultra-Lite Phantom+Specter v5.3 (Adblocker)
-// @namespace    universal.ultralite.safe.perf
-// @version      5.3
-// @description  Ultra-light hybrid content blocker featuring network interception, selective deep scanning, iframe/script filtering, and minimal-overhead page cleanup with privacy-first design.
-// @author       Michel Stutesman
+// @name         Phantom+Specter v5.4 (Adblocker)
+// @namespace    ultralean.universal.adblocker
+// @version      5.4
+// @description  Ultra-lean hybrid content blocker featuring network interception, selective deep scanning, iframe/script filtering, and minimal-overhead page cleanup with privacy-first design.
+// @author       Michael Stutesman
 // @license      MIT
 // @match        *://*/*
-// @grant        none
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @grant        GM_registerMenuCommand
 // @run-at       document-start
-// @downloadURL https://update.greasyfork.org/scripts/583278/Ultra-Lite%20Phantom%2BSpecter%20v53%20%28Adblocker%29.user.js
-// @updateURL https://update.greasyfork.org/scripts/583278/Ultra-Lite%20Phantom%2BSpecter%20v53%20%28Adblocker%29.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/583278/Phantom%2BSpecter%20v54%20%28Adblocker%29.user.js
+// @updateURL https://update.greasyfork.org/scripts/583278/Phantom%2BSpecter%20v54%20%28Adblocker%29.meta.js
 // ==/UserScript==
 
 (() => {
     'use strict';
 
     /* ---------------- SINGLETON GUARD ---------------- */
-    const KEY = "__PHANTOM_SPECTER_V52__";
+    const KEY = "__PHANTOM_SPECTER_V53__";
     if (window[KEY]) return;
     Object.defineProperty(window, KEY, {
         value: true,
         configurable: false
     });
+
+    /* ---------------- SITE EXCLUSIONS ---------------- */
+    const HOST = location.hostname.toLowerCase();
+
+    const excluded =
+        GM_getValue("ps_excluded_sites", []) || [];
+
+    if (excluded.includes(HOST)) return;
 
     /* ---------------- BLOCK RULES ---------------- */
     const blocked =
@@ -142,7 +152,6 @@
 
                 const tag = el.tagName;
 
-                /* FAST PATH */
                 if (tag === "SCRIPT" || tag === "IMG") {
                     const src = el.src || el.getAttribute?.("src");
                     if (isBlocked(src)) {
@@ -159,13 +168,11 @@
                         continue;
                     }
 
-                    /* ESCALATION CONDITION */
                     if (doDeep || isSuspicious(src)) {
                         deepScan(el);
                     }
                 }
 
-                /* OCCASIONAL ESCALATION */
                 if (doDeep) {
                     deepScan(el);
                 }
@@ -209,5 +216,20 @@
         io.observe(vids[i]);
     }
 
-    console.log("[Phantom Specter v5.2 Hybrid] Active");
+    /* ---------------- MENU COMMANDS ---------------- */
+    GM_registerMenuCommand("🚫 Exclude this site", () => {
+        const list = GM_getValue("ps_excluded_sites", []) || [];
+        if (!list.includes(HOST)) {
+            list.push(HOST);
+            GM_setValue("ps_excluded_sites", list);
+            location.reload();
+        }
+    });
+
+    GM_registerMenuCommand("🔄 Clear exclusions", () => {
+        GM_setValue("ps_excluded_sites", []);
+        location.reload();
+    });
+
+    console.log("[Phantom Specter v5.4 Hybrid] Active");
 })();
