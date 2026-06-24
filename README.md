@@ -1,6 +1,6 @@
 ## 🧿 Phantom+Specter v5.4 (Adblocker)
 
-An ultra-lightweight, privacy-focused hybrid content filtering engine designed to reduce unwanted advertising, trackers, and suspicious embedded content while maintaining exceptional performance and low runtime overhead.
+An ultra-lightweight, privacy-focused content filtering engine designed to reduce unwanted advertising, trackers, and suspicious embedded content while maintaining exceptional performance and low runtime overhead.
 
 ---
 
