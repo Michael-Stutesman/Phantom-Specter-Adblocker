@@ -1,97 +1,144 @@
-Ultra-Lite Phantom Specter
-Lightweight Web Content Blocker Userscript for Tampermonkey
+## 🧿 Phantom+Specter v5.4 (Adblocker)
 
-📌 Overview
-Ultra-Lite Phantom+Specter is a lightweight Tampermonkey userscript designed to reduce ads, tracking scripts, and sponsored content across the web.
-It works at document-start and uses multiple protection layers (network + DOM + mutation observation) to remove unwanted content early and efficiently.
+An ultra-lightweight, privacy-focused hybrid content filtering engine designed to reduce unwanted advertising, trackers, and suspicious embedded content while maintaining exceptional performance and low runtime overhead.
 
-⚙️ Features
+---
 
-🚫 Blocks major ad, tracker, and analytics domains
-⚡ Runs at document-start for early interception
-🌐 Intercepts fetch, XMLHttpRequest, and element src loads
-🧠 Uses MutationObserver for dynamic page cleanup
-🪶 Lightweight with no external dependencies
-📺 Reduces sponsored and embedded ad elements
-🔄 Works across most websites (*://*/*)
+## ⚡ Features
 
+### 🧩 Ultra-lean Core
 
-🔧 How It Works
-The script applies multiple layers of filtering:
+- Runs at `document-start` for maximum early-page protection.
+- Singleton guard prevents duplicate execution across reinjections.
+- Designed for minimal CPU, memory, and layout impact.
+- Avoids heavy polling loops and unnecessary recalculations.
 
+---
 
-Network Blocking
+### 🚫 Site Exclusion System
 
-Prevents requests to known ad/tracking domains
+Allows full opt-out per domain for compatibility and control.
 
+- Stores excluded sites locally via `GM_getValue`
+- Instantly bypasses all filtering logic on excluded domains
+- Lightweight lookup with no runtime scanning overhead
 
+### Menu Options
 
-Request Interception
+- 🚫 Exclude this site
+- 🔄 Clear exclusions
 
-Hooks into fetch and XMLHttpRequest to block unwanted calls
+---
 
+## 🛡 Network Request Blocking
 
+Intercepts and blocks unwanted requests at the browser level using:
 
-Element Protection
+- `fetch()` interception
+- `XMLHttpRequest` interception
+- Dynamic `src` assignment filtering (images, scripts, iframes)
 
-Blocks or removes scripts, images, and iframes from blocked sources
+### Targets include:
 
+- Advertising networks
+- Analytics services
+- Tracking & fingerprinting providers
+- Sponsored content delivery platforms
 
+---
 
-Dynamic Cleanup
+## 👻 Hybrid Intelligence Engine
 
-Uses MutationObserver to remove injected ads in real time
+A two-tier adaptive filtering system:
 
+### ⚡ Fast Path
 
+- Immediately removes known ad scripts, images, and iframe sources
+- Executes only on DOM additions (no continuous scanning)
+- Minimal CPU overhead per mutation batch
 
-Lazy Loading Support
+### 🧠 Deep Intelligence Mode
 
-Safely handles visible content while minimizing unnecessary loads
+- Activates only under increased DOM activity
+- Performs broader inspection of newly injected nodes
+- Detects suspicious iframe patterns dynamically
+- Avoids full DOM traversal unless necessary
 
+---
 
+## 🎯 CSS-Based Filtering Layer
 
+Instant visual suppression of common advertising elements:
 
-📦 Installation
-1. Install Tampermonkey
+- Sponsored content blocks
+- Banner and promotional containers
+- Ad iframes and embeds
+- Known ad-related IDs and class patterns
 
-https://www.tampermonkey.net/
+Applied instantly at `document-start` for zero delay.
 
-2. Install the script
-Click here to install directly:
-https://raw.githubusercontent.com/Michael-Stutesman/Ultra-Lite-Phantom-Specter/main/Phantom-Specter.user.js
+---
 
-Or:
+## 🧠 Smart Mutation Monitoring
 
-Open Tampermonkey dashboard
-Create a new script
-Paste the contents of Ultra-Lite-Phantom.user.js
-Save
+A lightweight MutationObserver system designed for efficiency:
 
+- Observes only DOM additions
+- Applies fast-path filtering immediately
+- Uses adaptive “budgeting” to prevent CPU spikes
+- Escalates to deeper scanning only when needed
 
-⚠️ Important Notes
+---
 
-Some websites may break or behave unexpectedly due to blocked resources
-Sites relying heavily on tracking or third-party scripts may not function correctly
-This script prioritizes privacy and performance over full site compatibility
+## 🎥 Minimal Video Observer
 
+Uses `IntersectionObserver` to improve media efficiency:
 
-🧪 Compatibility
+- Activates videos only when in viewport
+- Reduces background decoding and playback overhead
+- Improves GPU/CPU efficiency on media-heavy pages
 
-Chrome (Tampermonkey)
-Edge (Tampermonkey)
-Firefox (Tampermonkey / Greasemonkey)
+---
 
+## 🔐 Privacy
 
-📈 Performance
-Designed to stay lightweight:
+This script operates with strict privacy guarantees:
 
-Minimal CPU overhead
-Debounced mutation processing
-Early request blocking to reduce wasted loading
+- ❌ No data collection
+- ❌ No external server communication
+- ❌ No analytics or telemetry
+- ❌ No user tracking
+- ❌ No account requirements
 
+All processing happens locally in the browser.
 
-📄 License
-MIT License (recommended)
+---
 
-🙌 Disclaimer
-This script is intended for privacy improvement and reducing unwanted content. Use responsibly and be aware that blocking certain resources may affect site functionality.
+## ⚙️ Performance Philosophy
+
+Phantom+Specter is designed around three principles:
+
+### 🧭 Lightweight. Intelligent. Invisible.
+
+Instead of aggressively rewriting pages, it:
+
+- Targets only known unwanted patterns
+- Avoids unnecessary DOM traversal
+- Minimizes observer workload
+- Prefers selective intervention over blanket modification
+
+The goal is **silent, efficient improvement** without destabilizing modern web applications.
+
+---
+
+## 📜 License
+
+Released under the MIT License.
+
+You are free to:
+
+- Use it personally or commercially
+- Modify and extend it
+- Redistribute or fork it
+
+Provided “as-is”, without warranty of any kind.
