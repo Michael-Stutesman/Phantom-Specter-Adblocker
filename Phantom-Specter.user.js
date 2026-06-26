@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Phantom+Specter v5.4 (Adblocker)
 // @namespace    ultralean.universal.adblocker
-// @version      5.4
-// @description  Ultra-lean content blocker featuring network interception, selective deep scanning, iframe/script filtering, and minimal-overhead page cleanup with privacy-first design.
-// @author       Michael Stutesman
+// @version      5.4.1
+// @description  Ultra-lean hybrid content blocker featuring network interception, selective deep scanning, iframe/script filtering, and minimal-overhead page cleanup with privacy-first design.
+// @author       Michel Stutesman
 // @license      MIT
 // @match        *://*/*
 // @grant        GM_getValue
@@ -217,6 +217,7 @@
     }
 
     /* ---------------- MENU COMMANDS ---------------- */
+
     GM_registerMenuCommand("🚫 Exclude this site", () => {
         const list = GM_getValue("ps_excluded_sites", []) || [];
         if (!list.includes(HOST)) {
@@ -224,6 +225,13 @@
             GM_setValue("ps_excluded_sites", list);
             location.reload();
         }
+    });
+
+    GM_registerMenuCommand("✅ Re-enable this site", () => {
+        const list = GM_getValue("ps_excluded_sites", []) || [];
+        const updated = list.filter(x => x !== HOST);
+        GM_setValue("ps_excluded_sites", updated);
+        location.reload();
     });
 
     GM_registerMenuCommand("🔄 Clear exclusions", () => {
